@@ -1,7 +1,18 @@
-<div class="flex items-center justify-between p-3 hover:bg-gray-100 cursor-pointer">
+<div
+    class="flex items-center justify-between p-3 hover:bg-gray-100 cursor-pointer"
+    data-id="reminder-item-row-{{ reminder_item.id }}"
+>
     <p class="text-gray-800">{{ reminder_item.description }}</p>
     <div class="flex items-center">
-        <img src="/static/img/icons/icon-edit.svg" class="h-6 w-6 mr-2" />
-        <img src="/static/img/icons/icon-delete.svg" class="h-6 w-6" />
+        <img
+            src="/static/img/icons/icon-edit.svg" class="h-6 w-6 mr-2"
+        />
+        <img
+            src="/static/img/icons/icon-delete.svg" class="h-6 w-6"
+            hx-delete="/reminders/item-row/{{ reminder_item.id }}"
+            hx-target=".reminders-content"
+            hx-trigger="click"
+            hx-swap="outerHTML"
+        />
     </div>
 </div>
