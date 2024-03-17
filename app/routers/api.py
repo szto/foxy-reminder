@@ -7,7 +7,7 @@ This module provides routes for the API.
 # --------------------------------------------------------------------------------
 
 from app import db
-from app.utils.auth import get_auth_cookie_username
+from app.utils.auth import get_username_for_api
 from app.utils.exceptions import NotFoundException, ForbiddenException
 
 from fastapi import APIRouter, Depends
@@ -76,7 +76,7 @@ def query_reminders_by_id(reminders_id: int, username: str) -> dict:
 
 @router.get("/reminders", summary="Get the user's reminder lists", response_model=list[ReminderList])
 async def get_reminders(
-    username: str = Depends(get_auth_cookie_username)
+    username: str = Depends(get_username_for_api)
     ) -> list[ReminderList]:
     """
     Gets the list of all reminder lists owned by the user.
@@ -94,7 +94,7 @@ async def get_reminders(
 @router.post("/reminders", summary="Create a new reminder list", response_model=ReminderList)
 async def post_reminders(
     reminder_list: NewReminderList,
-    username: str = Depends(get_auth_cookie_username)
+    username: str = Depends(get_username_for_api)
 ) -> ReminderList:
     new_list = reminder_list.dict()
     new_list["owner"] = username
@@ -109,7 +109,7 @@ async def post_reminders(
 @router.get("/reminders/{reminders_id}", summary="Get a reminder list by ID", response_model=ReminderList)
 async def get_reminders_id(
     reminders_id: int,
-    username: str = Depends(get_auth_cookie_username)
+    username: str = Depends(get_username_for_api)
 ) -> ReminderList:
     return query_reminders_by_id(reminders_id, username)
 
@@ -118,7 +118,7 @@ async def get_reminders_id(
 async def put_reminders_id(
     reminders_id: int,
     reminder_list: UpdatedReminderList,
-    username: str = Depends(get_auth_cookie_username)
+    username: str = Depends(get_username_for_api)
 ) -> ReminderList:
     data = reminder_list.dict()
     query_reminders_by_id(reminders_id, username)
@@ -132,7 +132,7 @@ async def put_reminders_id(
 @router.delete("/reminders/{reminders_id}", summary="Deletes a reminder list", response_model=dict)
 async def delete_reminders_id(
     reminders_id: int,
-    username: str = Depends(get_auth_cookie_username)
+    username: str = Depends(get_username_for_api)
 ) -> dict:
     query_reminders_by_id(reminders_id, username)
     reminders_table.remove(doc_ids=[reminders_id])

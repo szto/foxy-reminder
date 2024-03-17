@@ -26,3 +26,8 @@ class ForbiddenException(HTTPException):
 class NotFoundException(HTTPException):
   def __init__(self):
     super().__init__(status.HTTP_404_NOT_FOUND, "Not Found")
+
+
+class UnauthorizedPageException(HTTPException):
+  def __init__(self):
+    super().__init__(status.HTTP_401_UNAUTHORIZED, "Unauthorized")

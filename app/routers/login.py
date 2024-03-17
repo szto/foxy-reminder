@@ -8,8 +8,9 @@ This module provides routes for authentication.
 
 from app import templates
 from app.utils.auth import AuthCookie, get_login_form_creds, get_auth_cookie
+from app.utils.exceptions import UnauthorizedPageException, UnauthorizedException
 
-from fastapi import APIRouter, Depends, Request, Response
+from fastapi import APIRouter, Depends, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from pydantic import BaseModel
 from typing import Optional
@@ -36,8 +37,14 @@ class UserAccount(BaseModel):
 # --------------------------------------------------------------------------------
 
 @router.get("/login", summary="Gets the login page", response_class=HTMLResponse)
-async def get_login(request: Request, invalid: Optional[bool] = None):
-  return templates.TemplateResponse("login.html", {'request': request, 'invalid': invalid})
+async def get_login(
+    request: Request,
+    invalid: Optional[bool] = None,
+    logged_out: Optional[bool] = None,
+    unauthorized: Optional[bool] = None
+):
+    context = {'request': request, 'invalid': invalid, 'lougged_out': logged_out, 'unauthorized': unauthorized}
+    return templates.TemplateResponse("login.html", context)
 
 
 @router.post("/login", summary="Logs into the app")
@@ -51,6 +58,10 @@ async def post_login(cookie: Optional[AuthCookie] = Depends(get_login_form_creds
 
 
 @router.post("/logout", summary="Logs out of the app")
-async def post_login(response: Response, cookie: AuthCookie = Depends(get_auth_cookie)) -> dict:
+async def post_login(cookie: Optional[AuthCookie] = Depends(get_auth_cookie)) -> dict:
+    if not cookie:
+        raise UnauthorizedPageException()
+
+    response = RedirectResponse('/login?logged_out=True', status_code=302)
     response.set_cookie(key=cookie.name, value=cookie.token, expires=-1)
-    return {"message": f"Logged out as {cookie.username}"}
+    return response

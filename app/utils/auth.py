@@ -12,7 +12,7 @@ import jwt
 import secrets
 
 from app import users, secret_key
-from app.utils.exceptions import UnauthorizedException
+from app.utils.exceptions import UnauthorizedException, UnauthorizedPageException
 from fastapi import Cookie, Form, Depends
 from fastapi.security import HTTPBasic
 from pydantic import BaseModel
@@ -82,8 +82,15 @@ def get_auth_cookie(reminders_session: str | None = Cookie(default=None)) -> Aut
     return cookie
 
 
-def get_auth_cookie_username(cookie: Optional[AuthCookie] = Depends(get_auth_cookie)) -> str:
+def get_username_for_api(cookie: Optional[AuthCookie] = Depends(get_auth_cookie)) -> str:
   if not cookie:
     raise UnauthorizedException()
+
+  return cookie.username
+
+
+def get_username_for_page(cookie: Optional[AuthCookie] = Depends(get_auth_cookie)) -> str:
+  if not cookie:
+    raise UnauthorizedPageException()
 
   return cookie.username
