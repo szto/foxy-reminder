@@ -17,7 +17,7 @@
         {% if selected_list %}
         <h3 class="text-xl font-semibold text-gray-700 p-4 border-b">{{ selected_list.name }}</h3>
         <div class="divide-y">
-            {% for reminder_item in selected_list.reminders %}
+            {% for reminder_item in selected_list.items %}
                 {% include "partials/reminders/item-row.html" %}
             {% endfor %}
             <!-- ... other reminder items ... -->
