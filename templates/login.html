@@ -3,25 +3,29 @@
     <title>Login | Reminders app</title>
     <link href="{{ url_for('static', path='/css/main.css') }}" rel="stylesheet">
 </head>
-<body>
-    <h1 class="font-medium leading-tight text-5xl mt-0 mb-2 text-blue-600">LOGIN HERE</h1>
-    {% if invalid %}
-        <div class="invalid-login-warning">
-            <p>Invalid login! Please retry.</p>
-        </div>
-    {% endif %}
-    <form action="/login" method="post">
-        <div>
-            <label for="username"><b>Username</b></label>
-            <input type="text" placeholder="Enter Username" name="username" required>
-        </div>
-        <div>
-            <label for="password"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="password" required>
-        </div>
-        <div>
-            <button type="submit">Login</button>
-        </div>
-    </form>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm">
+        <h1 class="text-blue-600 text-5xl font-medium mb-4">LOGIN HERE</h1>
+        <p class="text-gray-600 mb-4">Please login to access your reminders.</p>
+        <img id="foxy-logo" src="/static/img/logos/foxy-raw.png" alt="Foxy logo" class="mx-auto mb-4">
+        {% if invalid %}
+            <div class="bg-red-100 text-red-500 p-4 rounded mb-4">
+                <p>Invalid login! Please retry.</p>
+            </div>
+        {% endif %}
+        <form action="/login" method="post" class="space-y-4">
+            <div>
+                <label for="username" class="block text-sm font-bold mb-2">Username</label>
+                <input type="text" placeholder="Enter Username" name="username" required class="w-full p-2 border rounded">
+            </div>
+            <div>
+                <label for="password" class="block text-sm font-bold mb-2">Password</label>
+                <input type="password" placeholder="Enter Password" name="password" required class="w-full p-2 border rounded">
+            </div>
+            <div>
+                <button type="submit" class="w-full bg-blue-600 text-white p-3 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">Login</button>
+            </div>
+        </form>
+    </div>
 </body>
 </html>
