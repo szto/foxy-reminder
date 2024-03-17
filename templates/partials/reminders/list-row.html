@@ -1,8 +1,15 @@
 <div
-    class="flex items-center justify-between p-3 hover:bg-gray-100 cursor-pointer text-gray-400"
+    class="flex items-center justify-between p-3 hover:bg-gray-100 cursor-pointer text-gray-400 reminder-row{{ 'selected-list' if reminder_list.id == selected_list_id }}"
     hx-target="this"
 >
-    <p>{{ reminder_list.name }}</p>
+    <p
+        hx-get="/reminders/grid?selected_list={{ reminder_list.id }}"
+        hx-trigger="click"
+        hx-swap="outerHTML"
+        hx-target=".reminders-grid"
+    >
+        {{ reminder_list.name }}
+    </p>
     <div class="flex items-center">
         <img
             class="h-6 w-6 mr-2" src="/static/img/icons/icon-edit.svg"
