@@ -1,15 +1,26 @@
 <html>
 <head>
-    <title>Reminders | Reminders app</title>
+    <title>Reminders | Foxy Reminders app</title>
+    <link href="{{ url_for('static', path='/css/main.css') }}" rel="stylesheet">
 </head>
-<body>
-    <h1>Reminders</h1>
-    <p>What do I do?</p>
-    <div>
-        <form action="/logout" method="post">
-            <div>
-                <button type="submit">Logout</button>
+<body class="bg-gray-100 flex flex-col items-center justify-center h-screen">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
+        <h1 class="text-blue-600 text-3xl font-medium mb-4">Reminders</h1>
+        <p class="text-gray-600 mb-4">What do I do?</p>
+        <!-- List of reminders -->
+        <div class="mb-6">
+            <!-- Placeholder for where you would iterate over reminders -->
+            <div class="bg-gray-200 rounded p-4 mb-2">
+                <p class="text-gray-700">Reminder 1</p>
             </div>
+            <div class="bg-gray-200 rounded p-4 mb-2">
+                <p class="text-gray-700">Reminder 2</p>
+            </div>
+            <!-- Add more reminders here -->
+        </div>
+        <!-- Logout button -->
+        <form action="/logout" method="post">
+            <button type="submit" class="w-full bg-red-600 text-white p-3 rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50">Logout</button>
         </form>
     </div>
 </body>
