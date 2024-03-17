@@ -2,6 +2,7 @@
 <head>
     <title>Reminders | Foxy Reminders app</title>
     <link href="{{ url_for('static', path='/css/main.css') }}" rel="stylesheet">
+    <script src="/static/js/htmx.min.js"></script>
 </head>
 <body class="bg-gray-100">
     <!-- Navigation Bar -->
@@ -36,12 +37,17 @@
                 <div class="flex items-center justify-between p-3 hover:bg-gray-100 cursor-pointer">
                     <p class="text-gray-800">Chores</p>
                     <div class="flex items-center">
-                        <img src="/static/img/icons/icon-edit.svg" class="h-6 w-6" />
+                        <img src="/static/img/icons/icon-edit.svg" class="h-6 w-6 mr-2" />
                         <img src="/static/img/icons/icon-delete.svg" class="h-6 w-6" />
                     </div>
                 </div>
                 <!-- ... other reminder rows ... -->
-                <div class="flex items-center justify-between p-3 hover:bg-gray-100 cursor-pointer text-gray-400">
+                <div
+                    class="flex items-center justify-between p-3 hover:bg-gray-100 cursor-pointer text-gray-400"
+                    hx-get="/reminders/new-list-row"
+                    hx-trigger="click"
+                    hx-swap="outerHTML"
+                >
                     <p>New list</p>
                     <img src="/static/img/icons/icon-add.svg" class="h-6 w-6" />
                 </div>
@@ -55,7 +61,7 @@
                 <div class="flex items-center justify-between p-3 hover:bg-gray-100 cursor-pointer">
                     <p class="text-gray-800">Mow the lawn</p>
                     <div class="flex items-center">
-                        <img src="/static/img/icons/icon-edit.svg" class="h-6 w-6" />
+                        <img src="/static/img/icons/icon-edit.svg" class="h-6 w-6 mr-2" />
                         <img src="/static/img/icons/icon-delete.svg" class="h-6 w-6" />
                     </div>
                 </div>
