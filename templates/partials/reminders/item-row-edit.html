@@ -1,5 +1,5 @@
 <div
-  class="reminder-row-with-input flex items-center justify-between p-3 hover:bg-gray-100 cursor-pointer text-gray-400"
+  class="reminder-row-with-input{{ ' completed' if reminder_item.completed }} flex items-center justify-between p-3 hover:bg-gray-100 cursor-pointer text-gray-400"
   data-id="reminder-item-row-{{ reminder_item.id }}"
   hx-target="this"
 >
