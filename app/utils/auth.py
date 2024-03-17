@@ -2,7 +2,6 @@
 """
 This module provides security and authentication.
 """
-from typing import Optional
 
 # --------------------------------------------------------------------------------
 # Imports
@@ -10,12 +9,14 @@ from typing import Optional
 
 import jwt
 import secrets
+from typing import Optional
 
 from app import users, secret_key
 from app.utils.exceptions import UnauthorizedException, UnauthorizedPageException
 from fastapi import Cookie, Form, Depends
 from fastapi.security import HTTPBasic
 from pydantic import BaseModel
+from app.utils.storage import ReminderStorage
 
 
 # --------------------------------------------------------------------------------
@@ -94,3 +95,9 @@ def get_username_for_page(cookie: Optional[AuthCookie] = Depends(get_auth_cookie
     raise UnauthorizedPageException()
 
   return cookie.username
+
+
+
+
+def get_storage_for_page(username: str = Depends(get_username_for_page)) -> ReminderStorage:
+  return ReminderStorage(owner=username)

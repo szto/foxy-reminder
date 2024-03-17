@@ -8,7 +8,6 @@ This module builds shared parts for other modules.
 
 import json
 from fastapi.templating import Jinja2Templates
-from app.utils.storage import ReminderStorage
 
 
 # --------------------------------------------------------------------------------
@@ -25,14 +24,6 @@ with open('config.json') as config_json:
 # --------------------------------------------------------------------------------
 
 secret_key = config['secret_key']
-
-
-# --------------------------------------------------------------------------------
-# Connect the Database
-# --------------------------------------------------------------------------------
-
-
-storage = ReminderStorage()
 
 
 # --------------------------------------------------------------------------------

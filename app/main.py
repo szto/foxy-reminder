@@ -19,7 +19,7 @@ from app import templates
 # --------------------------------------------------------------------------------
 
 app = FastAPI()
-app.include_router(api.router)
+# app.include_router(api.router)
 app.include_router(login.router)
 app.include_router(reminders.router)
 
