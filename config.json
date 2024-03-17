@@ -1,5 +1,7 @@
 {
+  "secret_key": "mysecretkey",
   "users": {
+
     "pyman": "WowTesting12",
     "engineer": "GoodSvc12"
   }
