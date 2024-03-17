@@ -13,8 +13,9 @@
     </div>
 
     <!-- Right Column for Reminder Items -->
-    <div class="bg-white rounded-lg shadow overflow-hidden reminder_content-items">
-        <h3 class="text-xl font-semibold text-gray-700 p-4 border-b">Chores</h3>
+    <div class="bg-white rounded-lg shadow overflow-hidden reminders_content-items">
+        {% if selected_list %}
+        <h3 class="text-xl font-semibold text-gray-700 p-4 border-b">[List Name]</h3>
         <div class="divide-y">
             <div class="flex items-center justify-between p-3 hover:bg-gray-100 cursor-pointer">
                 <p class="text-gray-800">Mow the lawn</p>
@@ -29,5 +30,6 @@
                 <img src="/static/img/icons/icon-add.svg" class="h-6 w-6" />
             </div>
         </div>
+        {% endif %}
     </div>
 </div>
