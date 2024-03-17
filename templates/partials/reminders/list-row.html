@@ -2,14 +2,14 @@
     class="flex items-center justify-between p-3 hover:bg-gray-100 cursor-pointer text-gray-400"
     hx-target="this"
 >
-    <p>{{ list_name }}</p>
+    <p>{{ reminder_list.namek }}</p>
     <div class="flex items-center">
         <img
             class="h-6 w-6 mr-2" src="/static/img/icons/icon-edit.svg"
         />
         <img
             class="h-6 w-6" src="/static/img/icons/icon-delete.svg"
-            hx-delete="/reminders/list-row"
+            hx-delete="/reminders/list-row/{{ reminder_list.id }}"
             hx-trigger="click"
             hx-swap="outerHTML"
         />

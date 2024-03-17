@@ -34,7 +34,7 @@
         <div class="bg-white rounded-lg shadow overflow-hidden">
             <h3 class="text-xl font-semibold text-gray-700 p-4 border-b">Reminder Lists</h3>
             <div class="divide-y reminder-list-list">
-                {% for list_name in reminder_lists %}
+                {% for reminder_list in reminder_lists %}
                     {% include "partials/reminders/list-row.html" %}
                 {% endfor %}
                 <!-- ... other reminder rows ... -->
