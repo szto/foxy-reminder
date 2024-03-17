@@ -1,20 +1,25 @@
 <div
-    class="flex items-center justify-between p-3 hover:bg-gray-100 cursor-pointer"
+    class="flex items-center justify-between p-3 hover:bg-gray-100 cursor-pointer reminder-row{{ ' completed' if reminder_item.completed }}"
     data-id="reminder-item-row-{{ reminder_item.id }}"
+    hx-target="this"
 >
-    <p class="text-gray-800">{{ reminder_item.description }}</p>
+    <p
+        class="text-gray-800"
+        hx-patch="/reminders/item-row-strike/{{ reminder_item.id }}"
+        hx-trigger="click"
+        hx-swap="outerHTML"
+    >{{ reminder_item.description }}
+    </p>
     <div class="flex items-center">
         <img
             src="/static/img/icons/icon-edit.svg" class="h-6 w-6 mr-2"
             hx-get="/reminders/item-row-edit/{{ reminder_item.id }}"
-            hx-target="[data-id='reminder-item-row-{{ reminder_item.id }}']"
             hx-trigger="click"
             hx-swap="outerHTML"
         />
         <img
             src="/static/img/icons/icon-delete.svg" class="h-6 w-6"
             hx-delete="/reminders/item-row/{{ reminder_item.id }}"
-            hx-target="[data-id='reminder-item-row-{{ reminder_item.id }}']"
             hx-trigger="click"
             hx-swap="outerHTML"
         />
