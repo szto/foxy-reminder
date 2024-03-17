@@ -1,19 +1,21 @@
 <div
-  class="flex items-center justify-between p-3 hover:bg-gray-100 cursor-pointer"
-  hx-target="this"
+  class="flex items-center justify-between p-3 hover:bg-gray-100 cursor-pointer reminder-row-with-input"
 >
   <input type="text" placeholder="New list" name="reminder_list_name" autofocus />
   <div class="flex items-center">
     <img
-      class="h-6 w-6 mr-2" src="/static/img/icons/icon-check-circle.svg"
-      hx-post="/reminders/new-list-row-added"
+      class="h-6 w-6 mr-2"
+      src="/static/img/icons/icon-check-circle.svg"
+      hx-post="/reminders/new-list-row"
       hx-include="[name='reminder_list_name']"
+      hx-target=".reminders-grid"
       hx-trigger="click, keyup[key=='Enter'] from:[name='reminder_list_name']"
       hx-swap="outerHTML"
     />
     <img
       class="h-6 w-6" src="/static/img/icons/icon-x-circle.svg"
       hx-get="/reminders/new-list-row"
+      hx-target=".reminder-row-with-input"
       hx-trigger="click, click from:.reminder-row"
       hx-swap="outerHTML"
     />
