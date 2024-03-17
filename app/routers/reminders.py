@@ -6,7 +6,7 @@ This module provides routes for the reminders pages.
 # Imports
 # --------------------------------------------------------------------------------
 
-from app import templates, reminders_table
+from app import templates, storage
 from app.utils.auth import get_username_for_page
 
 from fastapi import APIRouter, Depends, Form, Request
@@ -27,7 +27,7 @@ router = APIRouter()
 
 @router.get("/reminders", summary="Logs into the app", response_class=HTMLResponse)
 async def get_reminders(request: Request, username: str = Depends(get_username_for_page)):
-    reminder_lists = reminders_table.get_lists(username)
+    reminder_lists = storage.get_lists(username)
     context = {'request': request, 'username': username, 'reminder_lists': reminder_lists}
 
     if len(reminder_lists) > 0:
@@ -51,7 +51,7 @@ async def get_reminders_grids(
   username: str = Depends(get_username_for_page),
   selected_list: Optional[int] = None
 ):
-    reminder_lists = reminders_table.get_lists(username)
+    reminder_lists = storage.get_lists(username)
 
     context = {
         'request': request,
@@ -73,7 +73,7 @@ async def post_reminders_new_list_row(
     username: str = Depends(get_username_for_page),
     reminder_list_name: str = Form()
 ):
-    reminders_id = reminders_table.create_list(reminder_list_name, username)
+    reminders_id = storage.create_list(reminder_list_name, username)
     return await get_reminders_grids(request, username, reminders_id)
 
 
@@ -99,7 +99,7 @@ async def get_reminders_grid(
     request: Request,
     username: str = Depends(get_username_for_page)
 ):
-    reminder_list = reminders_table.get_list(reminders_id, username)
+    reminder_list = storage.get_list(reminders_id, username)
     context = {'request': request, 'reminder_list': reminder_list}
     return templates.TemplateResponse("partials/reminders/list-row.html", context)
 
@@ -110,7 +110,7 @@ async def delete_reminders_new_list_row(
     request: Request,
     username: str = Depends(get_username_for_page)
 ):
-    reminders_table.delete_list(reminders_id, username)
+    storage.delete_list(reminders_id, username)
     return ""
 
 @router.patch("/reminders/list-row-name/{reminders_id}", response_class=HTMLResponse)
@@ -120,8 +120,8 @@ async def patch_reminders_list_row_name(
     username: str = Depends(get_username_for_page),
     new_name: str = Form()
 ):
-    reminders_table.update_list_name(reminders_id, username, new_name)
-    reminder_list = reminders_table.get_list(reminders_id, username)
+    storage.update_list_name(reminders_id, username, new_name)
+    reminder_list = storage.get_list(reminders_id, username)
     context = {'request': request, 'reminder_list': reminder_list}
     return templates.TemplateResponse("partials/reminders/list-row.html", context)
 
@@ -132,6 +132,6 @@ async def get_reminders_list_row_edit(
     request: Request,
     username: str = Depends(get_username_for_page)
 ):
-    reminder_list = reminders_table.get_list(reminders_id, username)
+    reminder_list = storage.get_list(reminders_id, username)
     context = {'request': request, 'reminder_list': reminder_list}
     return templates.TemplateResponse("partials/reminders/list-row-edit.html", context)
