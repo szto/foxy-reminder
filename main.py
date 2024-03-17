@@ -7,7 +7,7 @@ This module is the main module for the FastAPI app.
 # --------------------------------------------------------------------------------
 
 from fastapi import FastAPI
-from app.routers import api
+from app.routers import api, auth
 
 
 # --------------------------------------------------------------------------------
@@ -16,6 +16,7 @@ from app.routers import api
 
 app = FastAPI()
 app.include_router(api.router)
+app.include_router(auth.router)
 
 
 # --------------------------------------------------------------------------------
