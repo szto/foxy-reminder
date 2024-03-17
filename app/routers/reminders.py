@@ -56,7 +56,6 @@ async def post_reminders_new_list_row_added(
     username: str = Depends(get_username_for_page),
     reminder_list_name: str = Form()
 ):
-    breakpoint()
     reminders_id = table.create_list(reminder_list_name, username)
     reminder_list = table.get_list(reminders_id, username)
     context = {'request': request, 'reminder_list': reminder_list}
