@@ -43,7 +43,7 @@ async def get_login(
     logged_out: Optional[bool] = None,
     unauthorized: Optional[bool] = None
 ):
-    context = {'request': request, 'invalid': invalid, 'lougged_out': logged_out, 'unauthorized': unauthorized}
+    context = {'request': request, 'invalid': invalid, 'logged_out': logged_out, 'unauthorized': unauthorized}
     return templates.TemplateResponse("login.html", context)
 
 
@@ -58,7 +58,7 @@ async def post_login(cookie: Optional[AuthCookie] = Depends(get_login_form_creds
 
 
 @router.post("/logout", summary="Logs out of the app")
-async def post_login(cookie: Optional[AuthCookie] = Depends(get_auth_cookie)) -> dict:
+async def post_logout(cookie: Optional[AuthCookie] = Depends(get_auth_cookie)) -> dict:
     if not cookie:
         raise UnauthorizedPageException()
 
