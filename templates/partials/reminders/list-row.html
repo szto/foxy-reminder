@@ -4,10 +4,10 @@
 >
     <p
         hx-post="/reminders/select/{{ reminder_list.id }}"
-        hx-target=".reminders-grid"
+        hx-target=".reminders-content"
         hx-trigger="click"
         hx-swap="outerHTML"
-        hx-target=".reminders-grid"
+        hx-target=".reminders-content"
     >
         {{ reminder_list.name }}
     </p>
@@ -24,7 +24,7 @@
             hx-delete="/reminders/list-row/{{ reminder_list.id }}"
             hx-trigger="click"
             hx-swap="outerHTML"
-            hx-target=".reminders-grid"
+            hx-target=".reminders-content"
         />
     </div>
 </div>
