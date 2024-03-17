@@ -5,7 +5,7 @@
         <h3 class="text-xl font-semibold text-gray-700 p-4 border-b">Reminder Lists</h3>
         <div class="divide-y reminder-list-list">
             {% for reminder_list in reminder_lists %}
-            {% include "partials/reminders/list-row.html" %}
+                {% include "partials/reminders/list-row.html" %}
             {% endfor %}
             <!-- ... other reminder rows ... -->
             {% include "partials/reminders/new-list-row.html" %}
@@ -13,7 +13,7 @@
     </div>
 
     <!-- Right Column for Reminder Items -->
-    <div class="bg-white rounded-lg shadow overflow-hidden">
+    <div class="bg-white rounded-lg shadow overflow-hidden reminder_content-items">
         <h3 class="text-xl font-semibold text-gray-700 p-4 border-b">Chores</h3>
         <div class="divide-y">
             <div class="flex items-center justify-between p-3 hover:bg-gray-100 cursor-pointer">
