@@ -24,8 +24,8 @@ router = APIRouter()
 # --------------------------------------------------------------------------------
 
 class UserAccount(BaseModel):
-  username: str
-  password: str
+    username: str
+    password: str
 
 
 # --------------------------------------------------------------------------------
@@ -34,11 +34,12 @@ class UserAccount(BaseModel):
 
 @router.post("/login", summary="Logs into the app")
 async def post_login(response: Response, user_token: UserToken = Depends(get_http_basic_token)) -> dict:
-  response.set_cookie(key=auth_cookie, value=user_token.token)
-  return {"message": f"Logged in as {user_token.username}"}
+    print(user_token)
+    response.set_cookie(key=auth_cookie, value=user_token.token)
+    return {"message": f"Logged in as {user_token.username}"}
 
 
 @router.post("/logout", summary="Logs out of the app")
 async def post_login(response: Response, user_token: UserToken = Depends(get_auth_cookie_token)) -> dict:
-  response.set_cookie(key=auth_cookie, value=user_token.token, expires=-1)
-  return {"message": f"Logged out as {user_token.username}"}
+    response.set_cookie(key=auth_cookie, value=user_token.token, expires=-1)
+    return {"message": f"Logged out as {user_token.username}"}

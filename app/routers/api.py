@@ -7,9 +7,12 @@ This module provides routes for the API.
 # --------------------------------------------------------------------------------
 
 from .. import db
+from ..auth import UserToken, get_auth_cookie_token
+from ..exceptions import NotFoundException, ForbiddenException
 
-from fastapi import APIRouter, Cookie, Response
+from fastapi import APIRouter, Depends
 from pydantic import BaseModel
+from tinydb import Query
 
 
 # --------------------------------------------------------------------------------
@@ -20,27 +23,50 @@ router = APIRouter(prefix="/api")
 
 
 # --------------------------------------------------------------------------------
+# Tables
+# --------------------------------------------------------------------------------
+
+reminders_table = db.table('reminders')
+
+
+# --------------------------------------------------------------------------------
 # Models
 # --------------------------------------------------------------------------------
 
 class ReminderItem(BaseModel):
-  description: str
-  completed: bool
+    description: str
+    completed: bool
 
 
 class ReminderList(BaseModel):
-  id: int
-  owner: int
-  name: str
-  reminders: list[ReminderItem]
+    id: int
+    owner: str
+    name: str
+    reminders: list[ReminderItem] | None
 
 class NewReminderList(BaseModel):
-  name: str
+    name: str
 
 
 class UpdatedReminderList(BaseModel):
-  name: str
-  reminders: list[ReminderItem]
+    name: str
+    reminders: list[ReminderItem]
+
+
+# --------------------------------------------------------------------------------
+# Query Functions
+# --------------------------------------------------------------------------------
+
+def query_reminders_by_id(reminders_id: int, username: str) -> dict:
+    reminder_list = reminders_table.get(doc_id=reminders_id)
+
+    if not reminder_list:
+        raise NotFoundException()
+    elif reminder_list["owner"] != username:
+        raise ForbiddenException()
+
+    reminder_list['id'] = reminders_id
+    return reminder_list
 
 
 
@@ -48,93 +74,63 @@ class UpdatedReminderList(BaseModel):
 # Routes
 # --------------------------------------------------------------------------------
 
-@router.get("/lists", summary="Get the user's reminder lists", response_model=list[ReminderList])
-async def get_lists() -> list[ReminderList]:
-  """
-  Gets the list of all reminder lists owned by the user.
-  """
+@router.get("/reminders", summary="Get the user's reminder lists", response_model=list[ReminderList])
+async def get_reminders(user_token: UserToken = Depends(get_auth_cookie_token)) -> list[ReminderList]:
+    """
+    Gets the list of all reminder lists owned by the user.
+    """
 
-  return [
-    ReminderList(
-      id=1,
-      owner=1,
-      name="Groceries",
-      reminders=[
-        ReminderItem(description="Apple juice", completed=False),
-        ReminderItem(description="Ribs", completed=False),
-        ReminderItem(description="Cheese", completed=True),
-      ]
-    ),
-    ReminderList(
-      id=2,
-      owner=1,
-      name="Chores",
-      reminders=[
-        ReminderItem(description="Mow the lawn", completed=False),
-        ReminderItem(description="Feed the dog", completed=True),
-        ReminderItem(description="Do laundry", completed=False),
-        ReminderItem(description="Vacuum", completed=False),
-      ]
-    ),
-  ]
+    ListQuery = Query()
+    reminder_lists = reminders_table.search(ListQuery.owner == user_token.username)
+
+    for rems in reminder_lists:
+        rems['id'] = rems.doc_id
+
+    return reminder_lists
 
 
-@router.post("/lists", summary="Create a new reminder list", response_model=ReminderList)
-async def post_lists(reminder_list: NewReminderList) -> ReminderList:
-  """
-  Creates a new reminder list for the user.
-  """
+@router.post("/reminders", summary="Create a new reminder list", response_model=ReminderList)
+async def post_reminders(
+        reminder_list: NewReminderList,
+        user_token: UserToken = Depends(get_auth_cookie_token)
+) -> ReminderList:
+    new_list = reminder_list.dict()
+    new_list["owner"] = user_token.username
 
-  return ReminderList(
-    id=1,
-    owner=1,
-    name="Groceries",
-    reminders=[
-      ReminderItem(order=1, description="Apple juice", completed=False),
-      ReminderItem(order=2, description="Ribs", completed=False),
-      ReminderItem(order=3, description="Cheese", completed=True),
-    ]
-  )
+    if new_list.get("reminders", None) is None:
+        new_list["reminders"] = list()
+    list_id = reminders_table.insert(new_list)
+    return query_reminders_by_id(list_id, user_token.username)
 
 
-@router.get("/lists/{list_id}", summary="Get a reminder list by ID", response_model=ReminderList)
-async def get_lists_id(list_id: int) -> ReminderList:
-  """
-  Gets the reminder list by ID.
-  """
 
-  return ReminderList(
-    id=1,
-    owner=1,
-    name="Groceries",
-    reminders=[
-      ReminderItem(order=1, description="Apple juice", completed=False),
-      ReminderItem(order=2, description="Ribs", completed=False),
-      ReminderItem(order=3, description="Cheese", completed=True),
-    ]
-  )
+@router.get("/reminders/{reminders_id}", summary="Get a reminder list by ID", response_model=ReminderList)
+async def get_reminders_id(
+    reminders_id: int,
+    user_token: UserToken = Depends(get_auth_cookie_token)
+) -> ReminderList:
+    return query_reminders_by_id(reminders_id, user_token.username)
 
-@router.put("/lists/{list_id}", summary="Fully updates a reminder list", response_model=ReminderList)
-async def put_lists_id(reminder_list: UpdatedReminderList) -> ReminderList:
-  """
-  Fully updates a reminder list for the user.
-  """
 
-  return ReminderList(
-    id=1,
-    owner=1,
-    name="Groceries",
-    reminders=[
-      ReminderItem(order=1, description="Apple juice", completed=False),
-      ReminderItem(order=2, description="Ribs", completed=False),
-      ReminderItem(order=3, description="Cheese", completed=True),
-    ]
-  )
+@router.put("/reminders/{reminders_id}", summary="Fully updates a reminder list", response_model=ReminderList)
+async def put_reminders_id(
+    reminders_id: int,
+    reminder_list: UpdatedReminderList,
+    user_token: UserToken = Depends(get_auth_cookie_token)
+) -> ReminderList:
+    data = reminder_list.dict()
+    query_reminders_by_id(reminders_id, user_token.username)
+    reminders_table.update(data, doc_ids=[reminders_id])
 
-@router.delete("/lists/{list_id}", summary="Deletes a reminder list", response_model=dict)
-async def delete_lists_id(list_id: int) -> dict:
-  """
-  Deletes the reminder list by ID.
-  """
+    updated_reminders = reminders_table.get(doc_id=reminders_id)
+    updated_reminders['id'] = reminders_id
+    return updated_reminders
 
-  return dict()
+
+@router.delete("/reminders/{reminders_id}", summary="Deletes a reminder list", response_model=dict)
+async def delete_reminders_id(
+    reminders_id: int,
+    user_token: UserToken = Depends(get_auth_cookie_token)
+) -> dict:
+    query_reminders_by_id(reminders_id, user_token.username)
+    reminders_table.remove(doc_ids=[reminders_id])
