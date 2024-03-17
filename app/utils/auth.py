@@ -56,14 +56,15 @@ def deserialize_token(token: str) -> str:
 # --------------------------------------------------------------------------------
 
 def get_login_form_creds(username: str = Form(), password: str = Form()) -> AuthCookie:
-  if username in users:
-    if secrets.compare_digest(password, users[username]):
-      token = serialize_token(username)
-      return AuthCookie(
-        name=auth_cookie_name,
-        username=username,
-        token=token)
-  raise UnauthorizedException()
+    if username in users:
+        if secrets.compare_digest(password, users[username]):
+            token = serialize_token(username)
+            return AuthCookie(
+              name=auth_cookie_name,
+              username=username,
+              token=token
+            )
+    return None
 
 
 def get_auth_cookie(reminders_session: str | None = Cookie(default=None)) -> AuthCookie:
