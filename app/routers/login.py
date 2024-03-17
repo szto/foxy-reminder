@@ -6,7 +6,7 @@ This module provides routes for authentication.
 # Imports
 # --------------------------------------------------------------------------------
 
-from ..auth import AuthCookie, get_login_form_creds, get_auth_cookie
+from app.utils.auth import AuthCookie, get_login_form_creds, get_auth_cookie
 
 from fastapi import APIRouter, Depends, Request, Response
 from fastapi.responses import HTMLResponse
@@ -19,13 +19,6 @@ from pydantic import BaseModel
 # --------------------------------------------------------------------------------
 
 router = APIRouter()
-
-
-# --------------------------------------------------------------------------------
-# Templates
-# --------------------------------------------------------------------------------
-
-templates = Jinja2Templates(directory="templates")
 
 
 # --------------------------------------------------------------------------------
