@@ -33,14 +33,10 @@
         <!-- Left Column for Reminder Lists -->
         <div class="bg-white rounded-lg shadow overflow-hidden">
             <h3 class="text-xl font-semibold text-gray-700 p-4 border-b">Reminder Lists</h3>
-            <div class="divide-y">
-                <div class="flex items-center justify-between p-3 hover:bg-gray-100 cursor-pointer">
-                    <p class="text-gray-800">Chores</p>
-                    <div class="flex items-center">
-                        <img src="/static/img/icons/icon-edit.svg" class="h-6 w-6 mr-2" />
-                        <img src="/static/img/icons/icon-delete.svg" class="h-6 w-6" />
-                    </div>
-                </div>
+            <div class="divide-y reminder-list-list">
+                {% for list_name in reminder_lists %}
+                    {% include "partials/reminders/list-row.html" %}
+                {% endfor %}
                 <!-- ... other reminder rows ... -->
                 {% include "partials/reminders/new-list-row.html" %}
             </div>
