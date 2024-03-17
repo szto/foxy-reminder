@@ -1,13 +1,20 @@
 <div class="new-list flex items-center justify-between p-3 hover:bg-gray-100 cursor-pointer">
-  <input type="text" placeholder="New list" autofocus></input>
+  <input type="text" placeholder="New list" name="new_list_name" autofocus />
   <div class="flex items-center">
-    <img class="h-6 w-6 mr-2" src="/static/img/icons/icon-check-circle.svg" />
     <img
-            class="h-6 w-6" src="/static/img/icons/icon-x-circle.svg"
-            hx-get="/reminders/new-list-row"
-            hx-target=".new-list"
-            hx-trigger="click"
-            hx-swap="outerHTML"
+      class="h-6 w-6 mr-2" src="/static/img/icons/icon-check-circle.svg"
+      hx-post="/reminders/new-list-row-added"
+      hx-include="[name='new_list_name']"
+      hx-target=".new-list"
+      hx-trigger="click"
+      hx-swap="outerHTML"
+    />
+    <img
+      class="h-6 w-6" src="/static/img/icons/icon-x-circle.svg"
+      hx-get="/reminders/new-list-row"
+      hx-target=".new-list"
+      hx-trigger="click"
+      hx-swap="outerHTML"
     />
   </div>
 </div>
