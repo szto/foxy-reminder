@@ -8,7 +8,7 @@ This module builds shared parts for other modules.
 
 import json
 from fastapi.templating import Jinja2Templates
-from app.utils.storage import RemindersStorage
+from app.utils.storage import ReminderStorage
 
 
 # --------------------------------------------------------------------------------
@@ -32,7 +32,7 @@ secret_key = config['secret_key']
 # --------------------------------------------------------------------------------
 
 
-storage = RemindersStorage()
+storage = ReminderStorage()
 
 
 # --------------------------------------------------------------------------------

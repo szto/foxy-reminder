@@ -70,7 +70,7 @@ async def post_reminders(
         username,
         reminder_list.reminders
     )
-    return storage.get_list(reminders_id, username)
+    return storage._get_raw_list(reminders_id, username)
 
 
 @router.get("/reminders/{reminders_id}", summary="Get a reminder list by ID", response_model=ReminderList)
@@ -78,7 +78,7 @@ async def get_reminders_id(
     reminders_id: int,
     username: str = Depends(get_username_for_api)
 ) -> ReminderList:
-    return storage.get_list(reminders_id, username)
+    return storage._get_raw_list(reminders_id, username)
 
 
 @router.put("/reminders/{reminders_id}", summary="Fully updates a reminder list", response_model=ReminderList)
@@ -89,7 +89,7 @@ async def put_reminders_id(
 ) -> ReminderList:
     data = reminder_list.dict()
     storage.update_list(reminders_id, data, username)
-    return storage.get_list(reminders_id, username)
+    return storage._get_raw_list(reminders_id, username)
 
 
 @router.delete("/reminders/{reminders_id}", summary="Deletes a reminder list", response_model=dict)

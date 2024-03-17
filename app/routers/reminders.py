@@ -121,7 +121,7 @@ async def get_reminders_grid(
     request: Request,
     username: str = Depends(get_username_for_page)
 ):
-    reminder_list = storage.get_list(reminders_id, username)
+    reminder_list = storage._get_raw_list(reminders_id, username)
     selected_list = storage.get_selected_reminders(username)
     context = {'request': request, 'reminder_list': reminder_list, 'selected_list': selected_list}
     return templates.TemplateResponse("partials/reminders/list-row.html", context)
@@ -157,7 +157,7 @@ async def get_reminders_list_row_edit(
     request: Request,
     username: str = Depends(get_username_for_page)
 ):
-    reminder_list = storage.get_list(reminders_id, username)
+    reminder_list = storage._get_raw_list(reminders_id, username)
     selected_list = storage.get_selected_reminders(username)
     context = {'request': request, 'reminder_list': reminder_list, 'selected_list': selected_list}
     return templates.TemplateResponse("partials/reminders/list-row-edit.html", context)
