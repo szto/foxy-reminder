@@ -1,0 +1,13 @@
+<div class="flex items-center justify-between p-3 hover:bg-gray-100 cursor-pointer">
+  <input type="text" placeholder="New list" autofocus></input>
+  <div class="flex items-center">
+    <img class="h-6 w-6 mr-2" src="/static/img/icons/icon-check-circle.svg" />
+    <img
+            class="h-6 w-6" src="/static/img/icons/icon-x-circle.svg"
+            hx-get="/reminders/new-list-row"
+            tx-target=".new-list"
+            hx-trigger="click"
+            hx-swap="outerHTML"
+    />
+  </div>
+</div>

@@ -42,15 +42,7 @@
                     </div>
                 </div>
                 <!-- ... other reminder rows ... -->
-                <div
-                    class="flex items-center justify-between p-3 hover:bg-gray-100 cursor-pointer text-gray-400"
-                    hx-get="/reminders/new-list-row"
-                    hx-trigger="click"
-                    hx-swap="outerHTML"
-                >
-                    <p>New list</p>
-                    <img src="/static/img/icons/icon-add.svg" class="h-6 w-6" />
-                </div>
+                {% include "partials/reminders/new-list-row.html" %}
             </div>
         </div>
 
