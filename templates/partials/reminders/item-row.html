@@ -3,13 +3,24 @@
     data-id="reminder-item-row-{{ reminder_item.id }}"
     hx-target="this"
 >
-    <p
-        class="text-gray-800"
-        hx-patch="/reminders/item-row-strike/{{ reminder_item.id }}"
-        hx-trigger="click"
-        hx-swap="outerHTML"
-    >{{ reminder_item.description }}
-    </p>
+    <div class="flex {{ 'text-gray-400' if reminder_item.completed }}">
+        {% if reminder_item.completed %}
+        <img
+                src="/static/img/icons/icon-check.svg" class="h-6 w-6 mr-2"
+                hx-patch="/reminders/item-row-unstrike/{{ reminder_item.id }}"
+                hx-trigger="click"
+                hx-swap="outerHTML"
+        />
+        {% endif %}
+        <p
+                class="text-blue-800 {{ 'line-through' if reminder_item.completed }}"
+                hx-patch="/reminders/item-row-strike/{{ reminder_item.id }}"
+                hx-trigger="click"
+                hx-swap="outerHTML"
+        >{{ reminder_item.description }}
+        </p>
+
+    </div>
     <div class="flex items-center">
         <img
             src="/static/img/icons/icon-edit.svg" class="h-6 w-6 mr-2"
