@@ -1,5 +1,5 @@
 <div
-  class="reminder-row-with-input{{ ' selected-list' if reminder_list.id == selected_list }} flex items-center justify-between p-3 hover:bg-gray-100 cursor-pointer text-gray-400"
+  class="reminder-row-with-input{{ ' selected-list.id' if reminder_list.id == selected_list }} flex items-center justify-between p-3 hover:bg-gray-100 cursor-pointer text-gray-400"
   data-id="reminder-row-{{ reminder_list.id }}"
 >
   <input

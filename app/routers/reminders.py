@@ -134,8 +134,7 @@ async def delete_reminders_new_list_row(
     username: str = Depends(get_username_for_page)
 ):
     storage.delete_list(reminders_id, username)
-    if reminders_id == storage.get_selected_reminders(username):
-        storage.reset_selected_reminders(username)
+    storage.reset_selected_reminders(username)
 
     return _get_reminders_content(request, username)
 
