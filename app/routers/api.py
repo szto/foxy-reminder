@@ -1,5 +1,5 @@
 """
-This module provides routes for status.
+This module provides routes for the API.
 """
 
 # --------------------------------------------------------------------------------
