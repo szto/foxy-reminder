@@ -144,6 +144,19 @@ class ReminderStorage:
     return models
 
 
+  def get_item(self, item_id: int) -> ReminderItem:
+    item = self._get_raw_item(item_id)
+    item['id'] = item_id
+    model = ReminderItem(**item)
+    return model
+
+
+  def update_item_description(self, item_id: int, new_description: str) -> None:
+    item = self._get_raw_item(item_id)
+    item['description'] = new_description
+    self._items_table.update(item, doc_ids=[item_id])
+
+
   # Selected Lists
 
   def get_selected_list(self) -> Optional[SelectedList]:

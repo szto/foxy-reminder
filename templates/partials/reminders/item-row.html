@@ -6,6 +6,10 @@
     <div class="flex items-center">
         <img
             src="/static/img/icons/icon-edit.svg" class="h-6 w-6 mr-2"
+            hx-get="/reminders/item-row-edit/{{ reminder_item.id }}"
+            hx-target="[data-id='reminder-item-row-{{ reminder_item.id }}']"
+            hx-trigger="click"
+            hx-swap="outerHTML"
         />
         <img
             src="/static/img/icons/icon-delete.svg" class="h-6 w-6"
