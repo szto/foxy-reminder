@@ -3,25 +3,52 @@
     <title>Reminders | Foxy Reminders app</title>
     <link href="{{ url_for('static', path='/css/main.css') }}" rel="stylesheet">
 </head>
-<body class="bg-gray-100 flex flex-col items-center justify-center h-screen">
-    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
-        <h1 class="text-blue-600 text-3xl font-medium mb-4">Reminders</h1>
-        <p class="text-gray-600 mb-4">What do I do?</p>
-        <!-- List of reminders -->
-        <div class="mb-6">
-            <!-- Placeholder for where you would iterate over reminders -->
-            <div class="bg-gray-200 rounded p-4 mb-2">
-                <p class="text-gray-700">Reminder 1</p>
+<body class="bg-gray-100">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-md">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between">
+                <div class="flex space-x-4">
+                    <!-- logo -->
+                    <div>
+                        <a href="#" class="flex items-center py-5 px-2 text-gray-700 hover:text-gray-900">
+                            <img src="/static/img/logos/foxy-raw.png" alt="Foxy logo" class="h-8 w-8 mr-2">
+                            <span class="font-bold">Foxy Reminders</span>
+                        </a>
+                    </div>
+                    <!-- primary nav -->
+                    <div class="hidden md:flex items-center space-x-1">
+                        <a href="#" class="py-5 px-3 text-gray-700 hover:text-gray-900">Home</a>
+                        <a href="#" class="py-5 px-3 text-gray-700 hover:text-gray-900">About</a>
+                        <a href="#" class="py-5 px-3 text-gray-700 hover:text-gray-900">Contact</a>
+                    </div>
+                </div>
+                <!-- secondary nav -->
+                <form action="/logout" method="post" class="flex">
+                    <button type="submit" class="hidden md:flex items-center space-x-1">Logout</button>
+                </form>
             </div>
-            <div class="bg-gray-200 rounded p-4 mb-2">
-                <p class="text-gray-700">Reminder 2</p>
-            </div>
-            <!-- Add more reminders here -->
         </div>
-        <!-- Logout button -->
-        <form action="/logout" method="post">
-            <button type="submit" class="w-full bg-red-600 text-white p-3 rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50">Logout</button>
-        </form>
+    </nav>
+    <!-- Title Bar -->
+    <div class="bg-gray-100 flex flex-col items-center justify-center h-screen">
+        <!-- Main Content -->
+        <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
+            <!-- Dynamic list of reminders will be here -->
+            <p class="text-gray-600 mb-4">What do I do?</p>
+            <!-- List of reminders -->
+            <div class="mb-6">
+                <!-- Reminder placeholders -->
+                <div class="bg-gray-200 rounded p-4 mb-2">
+                    <p class="text-gray-700">Reminder 1</p>
+                </div>
+                <div class="bg-gray-200 rounded p-4 mb-2">
+                    <p class="text-gray-700">Reminder 2</p>
+                </div>
+                <!-- More reminders would be listed here -->
+            </div>
+        </div>
+
     </div>
 </body>
 </html>
