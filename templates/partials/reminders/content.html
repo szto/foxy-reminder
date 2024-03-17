@@ -15,20 +15,13 @@
     <!-- Right Column for Reminder Items -->
     <div class="bg-white rounded-lg shadow overflow-hidden reminders_content-items">
         {% if selected_list %}
-        <h3 class="text-xl font-semibold text-gray-700 p-4 border-b">[List Name]</h3>
+        <h3 class="text-xl font-semibold text-gray-700 p-4 border-b">{{ selected_list.name }}</h3>
         <div class="divide-y">
-            <div class="flex items-center justify-between p-3 hover:bg-gray-100 cursor-pointer">
-                <p class="text-gray-800">Mow the lawn</p>
-                <div class="flex items-center">
-                    <img src="/static/img/icons/icon-edit.svg" class="h-6 w-6 mr-2" />
-                    <img src="/static/img/icons/icon-delete.svg" class="h-6 w-6" />
-                </div>
-            </div>
+            {% for reminder_item in selected_list.reminders %}
+                {% include "partials/reminders/item-row.html" %}
+            {% endfor %}
             <!-- ... other reminder items ... -->
-            <div class="flex items-center justify-between p-3 hover:bg-gray-100 cursor-pointer text-gray-400">
-                <p>New reminder</p>
-                <img src="/static/img/icons/icon-add.svg" class="h-6 w-6" />
-            </div>
+            {% include "partials/reminders/new-item-row.html" %}
         </div>
         {% endif %}
     </div>
