@@ -7,7 +7,7 @@ This module builds shared parts for other modules.
 # --------------------------------------------------------------------------------
 
 import json
-import tinydb
+from tinydb import TinyDB
 from fastapi.templating import Jinja2Templates
 from app.utils.persistence import RemindersTable
 
@@ -32,7 +32,8 @@ secret_key = config['secret_key']
 # Connect the Database
 # --------------------------------------------------------------------------------
 
-reminders_table = RemindersTable()
+db = TinyDB('reminder_db.json')
+reminders_table = RemindersTable(db)
 
 
 
