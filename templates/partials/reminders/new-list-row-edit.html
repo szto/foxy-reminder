@@ -1,5 +1,6 @@
 <div
   class="flex items-center justify-between p-3 hover:bg-gray-100 cursor-pointer reminder-row-with-input"
+  data-id="new-reminder-row"
 >
   <input type="text" placeholder="New list" name="reminder_list_name" autofocus />
   <div class="flex items-center">
@@ -15,7 +16,7 @@
     <img
       class="h-6 w-6" src="/static/img/icons/icon-x-circle.svg"
       hx-get="/reminders/new-list-row"
-      hx-target=".reminder-row-with-input"
+      hx-target="[data-id='new-reminder-row']"
       hx-trigger="click, click from:.reminder-row"
       hx-swap="outerHTML"
     />
