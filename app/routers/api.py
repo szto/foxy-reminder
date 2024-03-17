@@ -6,7 +6,7 @@ This module provides routes for the API.
 # Imports
 # --------------------------------------------------------------------------------
 
-from app import db
+from app import table
 from app.utils.auth import get_username_for_api
 from app.utils.exceptions import NotFoundException, ForbiddenException
 
@@ -20,13 +20,6 @@ from tinydb import Query
 # --------------------------------------------------------------------------------
 
 router = APIRouter(prefix="/api")
-
-
-# --------------------------------------------------------------------------------
-# Tables
-# --------------------------------------------------------------------------------
-
-reminders_table = db.table('reminders')
 
 
 # --------------------------------------------------------------------------------
@@ -54,23 +47,6 @@ class UpdatedReminderList(BaseModel):
 
 
 # --------------------------------------------------------------------------------
-# Query Functions
-# --------------------------------------------------------------------------------
-
-def query_reminders_by_id(reminders_id: int, username: str) -> dict:
-    reminder_list = reminders_table.get(doc_id=reminders_id)
-
-    if not reminder_list:
-        raise NotFoundException()
-    elif reminder_list["owner"] != username:
-        raise ForbiddenException()
-
-    reminder_list['id'] = reminders_id
-    return reminder_list
-
-
-
-# --------------------------------------------------------------------------------
 # Routes
 # --------------------------------------------------------------------------------
 
@@ -81,14 +57,7 @@ async def get_reminders(
     """
     Gets the list of all reminder lists owned by the user.
     """
-
-    ListQuery = Query()
-    reminder_lists = reminders_table.search(ListQuery.owner == username)
-
-    for rems in reminder_lists:
-        rems['id'] = rems.doc_id
-
-    return reminder_lists
+    return table.get_lists(username)
 
 
 @router.post("/reminders", summary="Create a new reminder list", response_model=ReminderList)
@@ -96,14 +65,11 @@ async def post_reminders(
     reminder_list: NewReminderList,
     username: str = Depends(get_username_for_api)
 ) -> ReminderList:
+
     new_list = reminder_list.dict()
     new_list["owner"] = username
-
-    if new_list.get("reminders", None) is None:
-        new_list["reminders"] = list()
-    list_id = reminders_table.insert(new_list)
-    return query_reminders_by_id(list_id, username)
-
+    reminders_id = table.create_list(new_list)
+    return table.get_list(reminders_id, username)
 
 
 @router.get("/reminders/{reminders_id}", summary="Get a reminder list by ID", response_model=ReminderList)
@@ -111,7 +77,7 @@ async def get_reminders_id(
     reminders_id: int,
     username: str = Depends(get_username_for_api)
 ) -> ReminderList:
-    return query_reminders_by_id(reminders_id, username)
+    return table.get_list(reminders_id, username)
 
 
 @router.put("/reminders/{reminders_id}", summary="Fully updates a reminder list", response_model=ReminderList)
@@ -121,12 +87,8 @@ async def put_reminders_id(
     username: str = Depends(get_username_for_api)
 ) -> ReminderList:
     data = reminder_list.dict()
-    query_reminders_by_id(reminders_id, username)
-    reminders_table.update(data, doc_ids=[reminders_id])
-
-    updated_reminders = reminders_table.get(doc_id=reminders_id)
-    updated_reminders['id'] = reminders_id
-    return updated_reminders
+    table.update_list(reminders_id, data, username)
+    return table.get_list(reminders_id, username)
 
 
 @router.delete("/reminders/{reminders_id}", summary="Deletes a reminder list", response_model=dict)
@@ -134,5 +96,5 @@ async def delete_reminders_id(
     reminders_id: int,
     username: str = Depends(get_username_for_api)
 ) -> dict:
-    query_reminders_by_id(reminders_id, username)
-    reminders_table.remove(doc_ids=[reminders_id])
+    table.delete_list(reminders_id, username)
+    return dict()
