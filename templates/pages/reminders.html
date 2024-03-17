@@ -1,0 +1,71 @@
+<html>
+<head>
+    <title>Reminders | Foxy Reminders app</title>
+    <link href="{{ url_for('static', path='/css/main.css') }}" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-md">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between">
+                <div class="flex space-x-4">
+                    <!-- logo -->
+                    <div>
+                        <a href="#" class="flex items-center py-5 px-2 text-gray-700 hover:text-gray-900">
+                            <img src="/static/img/logos/foxy-raw.png" alt="Foxy logo" class="h-8 w-8 mr-2">
+                            <span class="font-bold">Foxy Reminders</span>
+                        </a>
+                    </div>
+                    <!-- primary nav -->
+                    <div class="hidden md:flex items-center space-x-1">
+                    </div>
+                </div>
+                <!-- secondary nav -->
+                <form action="/logout" method="post" class="flex">
+                    <button type="submit" class="hidden md:flex items-center space-x-1">Logout</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <!-- Title Bar -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+        <!-- Left Column for Reminder Lists -->
+        <div class="bg-white rounded-lg shadow overflow-hidden">
+            <h3 class="text-xl font-semibold text-gray-700 p-4 border-b">Reminder Lists</h3>
+            <div class="divide-y">
+                <div class="flex items-center justify-between p-3 hover:bg-gray-100 cursor-pointer">
+                    <p class="text-gray-800">Chores</p>
+                    <div class="flex items-center">
+                        <img src="/static/img/icons/icon-edit.svg" class="h-6 w-6" />
+                        <img src="/static/img/icons/icon-delete.svg" class="h-6 w-6" />
+                    </div>
+                </div>
+                <!-- ... other reminder rows ... -->
+                <div class="flex items-center justify-between p-3 hover:bg-gray-100 cursor-pointer text-gray-400">
+                    <p>New list</p>
+                    <img src="/static/img/icons/icon-add.svg" class="h-6 w-6" />
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column for Reminder Items -->
+        <div class="bg-white rounded-lg shadow overflow-hidden">
+            <h3 class="text-xl font-semibold text-gray-700 p-4 border-b">Chores</h3>
+            <div class="divide-y">
+                <div class="flex items-center justify-between p-3 hover:bg-gray-100 cursor-pointer">
+                    <p class="text-gray-800">Mow the lawn</p>
+                    <div class="flex items-center">
+                        <img src="/static/img/icons/icon-edit.svg" class="h-6 w-6" />
+                        <img src="/static/img/icons/icon-delete.svg" class="h-6 w-6" />
+                    </div>
+                </div>
+                <!-- ... other reminder items ... -->
+                <div class="flex items-center justify-between p-3 hover:bg-gray-100 cursor-pointer text-gray-400">
+                    <p>New reminder</p>
+                    <img src="/static/img/icons/icon-add.svg" class="h-6 w-6" />
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

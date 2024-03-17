@@ -11,6 +11,7 @@ from fastapi.responses import FileResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from app.routers import api, login, reminders
 from app.utils.exceptions import UnauthorizedPageException
+from app import templates
 
 
 # --------------------------------------------------------------------------------
@@ -53,3 +54,8 @@ def read_root():
 @app.get('/favicon.ico', include_in_schema=False)
 async def favicon():
     return FileResponse("static/img/favicon.ico")
+
+
+@app.get('/not-found')
+async def get_not_found(request: Request):
+  return templates.TemplateResponse("pages/not-found.html", {'request': request})
