@@ -9,6 +9,7 @@ A simple reminder app for the foxy.
 * [Jinja templates](https://jinja.palletsprojects.com/en/3.1.x/) with HTML and CSS for the frontend
 * [TinyDB](https://tinydb.readthedocs.io/en/latest/index.html) for the database
 * [Playwright](https://playwright.dev/python/) and [pytest](https://docs.pytest.org/) for testing
+* [Ruff](https://github.com/astral-sh/ruff) for format and linting
 
 <img width="1393" alt="foxy-reminder-logo" src="https://github.com/szto/foxy-reminder/assets/19988590/331f47b6-b9d5-47d3-919c-c199a6d744c2">
 
