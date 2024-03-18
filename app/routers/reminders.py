@@ -12,6 +12,7 @@ from app.utils.storage import ReminderStorage
 
 from fastapi import APIRouter, Depends, Form, Request
 from fastapi.responses import HTMLResponse
+from pydantic import BaseModel
 
 
 # --------------------------------------------------------------------------------
@@ -41,6 +42,21 @@ def _build_full_page_context(request: Request, storage: ReminderStorage):
 def _get_reminders_grid(request: Request, storage: ReminderStorage):
     context = _build_full_page_context(request, storage)
     return templates.TemplateResponse("partials/reminders/content.html", context)
+
+
+# --------------------------------------------------------------------------------
+# Models
+# --------------------------------------------------------------------------------
+
+class ReminderItem(BaseModel):
+    id: int
+    list_id: int
+    description: str
+    completed: bool
+
+
+class ReminderItemResponse(BaseModel):
+    reminder_item: ReminderItem
 
 
 # --------------------------------------------------------------------------------
@@ -146,7 +162,7 @@ async def get_reminders_item_row(
     item_id: int, request: Request, storage: ReminderStorage = Depends(get_storage_for_page)
 ):
     reminder_item = storage.get_item(item_id)
-    return {"reminder_item": reminder_item}
+    return ReminderItemResponse(reminder_item=ReminderItem(**reminder_item.dict()))
 
 
 @router.get("/reminders/new-item-row", response_class=HTMLResponse)
@@ -184,7 +200,7 @@ async def delete_reminders_item_row(
     return None
 
 
-@router.patch("/reminders/item-row-description/{item_id}", response_class=HTMLResponse)
+@router.patch("/reminders/item-row-description/{item_id}", response_model=ReminderItemResponse)
 @jinja.hx("partials/reminders/item-row.html")
 async def patch_reminders_item_row_description(
     item_id: int,
@@ -194,23 +210,23 @@ async def patch_reminders_item_row_description(
 ):
     storage.update_item_description(item_id, new_description)
     reminder_item = storage.get_item(item_id)
-    return {"reminder_item": reminder_item}
+    return ReminderItemResponse(reminder_item=ReminderItem(**reminder_item.dict()))
 
 
-@router.get("/reminders/item-row-edit/{item_id}", response_class=HTMLResponse)
+@router.get("/reminders/item-row-edit/{item_id}", response_model=ReminderItemResponse)
 @jinja.hx("partials/reminders/item-row-edit.html")
 async def get_reminders_item_row_edit(
     item_id: int, request: Request, storage: ReminderStorage = Depends(get_storage_for_page)
 ):
     reminder_item = storage.get_item(item_id)
-    return {"reminder_item": reminder_item}
+    return ReminderItemResponse(reminder_item=ReminderItem(**reminder_item.dict()))
 
 
-@router.patch("/reminders/item-row-strike/{item_id}", response_class=HTMLResponse)
+@router.patch("/reminders/item-row-strike/{item_id}", response_model=ReminderItemResponse)
 @jinja.hx("partials/reminders/item-row.html")
 async def patch_reminders_item_row_strike(
     item_id: int, request: Request, storage: ReminderStorage = Depends(get_storage_for_page)
 ):
     storage.strike_item(item_id)
     reminder_item = storage.get_item(item_id)
-    return {"reminder_item": reminder_item}
+    return ReminderItemResponse(reminder_item=ReminderItem(**reminder_item.dict()))
