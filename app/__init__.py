@@ -7,6 +7,7 @@ This module builds shared parts for other modules.
 # --------------------------------------------------------------------------------
 
 import json
+from fasthx import Jinja
 from fastapi.templating import Jinja2Templates
 
 
@@ -32,3 +33,4 @@ secret_key = config["secret_key"]
 # --------------------------------------------------------------------------------
 
 templates = Jinja2Templates(directory="templates")
+jinja = Jinja(templates)

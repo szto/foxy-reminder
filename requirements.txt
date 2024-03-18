@@ -8,3 +8,4 @@ python-multipart==0.0.6
 pytailwindcss==0.2.0
 black==24.3.0
 pytest-playwright==0.4.4
+fasthx==0.2402.2

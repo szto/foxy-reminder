@@ -39,7 +39,6 @@ def test_successful_login(page: Page, user: User):
     expect(page.get_by_role("button", name="Logout")).to_be_visible()
 
 
-
 def test_failed_login(page: Page, user: User):
     # Given the login page is displayed
     page.goto("/login")
@@ -51,7 +50,7 @@ def test_failed_login(page: Page, user: User):
 
     # Then the redirect login page with is invalid
     expect(page).to_have_url("http://127.0.0.1:8000/login?invalid=True")
-    expect(page).to_have_url(re.compile('/login'))
+    expect(page).to_have_url(re.compile("/login"))
 
 
 # --------------------------------------------------------------------------------
