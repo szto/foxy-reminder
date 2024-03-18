@@ -29,7 +29,17 @@ To run the app:
 uvicorn app.main:app --reload
 ```
 
-To load the app, open your browser to ["http://127.0.0.1:8000/login"](http://127.0.0.1:8000/login)
+To load the app, open your browser to ["http://127.0.0.1:8000"](http://127.0.0.1:8000)
+
+
+## Test
+
+To run the tests:
+
+```bash
+pytest
+```
+
 
 ## Logging into the app
 
