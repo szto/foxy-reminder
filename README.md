@@ -1,7 +1,8 @@
 # foxy-reminder
 A simple reminder app for the foxy.
 
-![Uploading Screenshot of Arc at Mar 18, 2024 1_09_42 PM.png…]()
+<img width="1415" alt="Screenshot of Arc at Mar 18, 2024 1_09_42 PM" src="https://github.com/szto/foxy-reminder/assets/19988590/408057d5-94e8-446c-aba5-fd2dfd981601">
+
 
 ## Install
 ```bash
