@@ -40,7 +40,7 @@ async def favicon():
 
 @router.get(
     path="/not-found",
-    summary="Gets the \"Not Found\" page",
+    summary='Gets the "Not Found" page',
     tags=["Pages"],
 )
 async def get_not_found(request: Request):
