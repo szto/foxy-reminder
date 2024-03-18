@@ -23,6 +23,9 @@ exclude = '''
 )/
 '''
 
+[tool.ruff.format]
+quote-style = "double"
+
 [tool.isort]
 profile="black"
 line_length=110

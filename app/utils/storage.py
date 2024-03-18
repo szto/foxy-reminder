@@ -167,14 +167,19 @@ class ReminderStorage:
             return None
 
         return SelectedList(
-            id=reminder_list.id, owner=reminder_list.owner, name=reminder_list.name, items=reminder_items
+            id=reminder_list.id,
+            owner=reminder_list.owner,
+            name=reminder_list.name,
+            items=reminder_items,
         )
 
     def set_selected_list(self, list_id: Optional[int]) -> None:
         selected_list = self._selected_table.search(Query().owner == self.owner)
 
         if selected_list:
-            self._selected_table.update({"list_id": list_id}, Query().owner == self.owner)
+            self._selected_table.update(
+                {"list_id": list_id}, Query().owner == self.owner
+            )
         else:
             self._selected_table.insert({"owner": self.owner, "list_id": list_id})
 

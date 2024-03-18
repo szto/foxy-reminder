@@ -35,7 +35,9 @@ def test_successful_login(page: Page, user: User):
     expect(page).to_have_url(re.compile(re.escape("/") + "reminders"))
     expect(page.locator("id=foxy-logo")).to_be_visible()
     expect(page.locator("id=foxy-title")).to_have_text("Foxy Reminders")
-    expect(page.locator("id=reminders-message")).to_have_text(f"Reminders for {user.username}")
+    expect(page.locator("id=reminders-message")).to_have_text(
+        f"Reminders for {user.username}"
+    )
     expect(page.get_by_role("button", name="Logout")).to_be_visible()
 
 

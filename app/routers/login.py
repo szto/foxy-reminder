@@ -45,12 +45,19 @@ async def get_login(
     logged_out: Optional[bool] = None,
     unauthorized: Optional[bool] = None,
 ):
-    context = {"request": request, "invalid": invalid, "logged_out": logged_out, "unauthorized": unauthorized}
+    context = {
+        "request": request,
+        "invalid": invalid,
+        "logged_out": logged_out,
+        "unauthorized": unauthorized,
+    }
     return templates.TemplateResponse("pages/login.html", context)
 
 
 @router.post("/login", summary="Logs into the app")
-async def post_login(cookie: Optional[AuthCookie] = Depends(get_login_form_creds)) -> dict:
+async def post_login(
+    cookie: Optional[AuthCookie] = Depends(get_login_form_creds),
+) -> dict:
     if cookie:
         response = RedirectResponse("/reminders", status_code=302)
         response.set_cookie(key=cookie.name, value=cookie.token)

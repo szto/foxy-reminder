@@ -59,7 +59,9 @@ def deserialize_token(token: str) -> str:
 # --------------------------------------------------------------------------------
 
 
-def get_login_form_creds(username: str = Form(), password: str = Form()) -> Optional[AuthCookie]:
+def get_login_form_creds(
+    username: str = Form(), password: str = Form()
+) -> Optional[AuthCookie]:
     cookie = None
     if username in users:
         if secrets.compare_digest(password, users[username]):
@@ -73,23 +75,31 @@ def get_auth_cookie(reminders_session: str | None = Cookie(default=None)) -> Aut
     if reminders_session:
         username = deserialize_token(reminders_session)
         if username and username in users:
-            cookie = AuthCookie(name=auth_cookie_name, username=username, token=reminders_session)
+            cookie = AuthCookie(
+                name=auth_cookie_name, username=username, token=reminders_session
+            )
     return cookie
 
 
-def get_username_for_api(cookie: Optional[AuthCookie] = Depends(get_auth_cookie)) -> str:
+def get_username_for_api(
+    cookie: Optional[AuthCookie] = Depends(get_auth_cookie),
+) -> str:
     if not cookie:
         raise UnauthorizedException()
 
     return cookie.username
 
 
-def get_username_for_page(cookie: Optional[AuthCookie] = Depends(get_auth_cookie)) -> str:
+def get_username_for_page(
+    cookie: Optional[AuthCookie] = Depends(get_auth_cookie),
+) -> str:
     if not cookie:
         raise UnauthorizedPageException()
 
     return cookie.username
 
 
-def get_storage_for_page(username: str = Depends(get_username_for_page)) -> ReminderStorage:
+def get_storage_for_page(
+    username: str = Depends(get_username_for_page),
+) -> ReminderStorage:
     return ReminderStorage(owner=username, db_path=db_path)
