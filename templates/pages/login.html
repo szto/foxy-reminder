@@ -24,7 +24,7 @@
                 <input type="password" placeholder="Enter Password" name="password" required class="w-full p-2 border rounded">
             </div>
             <div>
-                <button type="submit" class="w-full bg-blue-600 text-white p-3 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">Login</button>
+                <button id="login" type="submit" data-testid="login-button" class="w-full bg-blue-600 text-white p-3 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">Login</button>
             </div>
             {% if invalid %}
             <div class="invalid-login-warning">

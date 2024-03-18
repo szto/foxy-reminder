@@ -13,12 +13,13 @@
                     <!-- logo -->
                     <div>
                         <a href="#" class="flex items-center py-5 px-2 text-gray-700 hover:text-gray-900">
-                            <img src="/static/img/logos/foxy-raw.png" alt="Foxy logo" class="h-8 w-8 mr-2">
-                            <span class="font-bold">Foxy Reminders</span>
+                            <img id="foxy-logo" src="/static/img/logos/foxy-raw.png" alt="Foxy logo" class="h-8 w-8 mr-2">
+                            <span id="foxy-title" class="font-bold">Foxy Reminders</span>
                         </a>
                     </div>
                     <!-- primary nav -->
                     <div class="hidden md:flex items-center space-x-1">
+                        <p id="reminders-message">Reminders for {{ owner }}</p>
                     </div>
                 </div>
                 <!-- secondary nav -->
