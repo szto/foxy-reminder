@@ -14,16 +14,16 @@ from fastapi.templating import Jinja2Templates
 # Read Configuration
 # --------------------------------------------------------------------------------
 
-with open('config.json') as config_json:
-  config = json.load(config_json)
-  users = config['users']
+with open("config.json") as config_json:
+    config = json.load(config_json)
+    users = config["users"]
 
 
 # --------------------------------------------------------------------------------
 # Establish the Secret Key
 # --------------------------------------------------------------------------------
 
-secret_key = config['secret_key']
+secret_key = config["secret_key"]
 
 
 # --------------------------------------------------------------------------------

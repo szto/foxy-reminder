@@ -28,17 +28,17 @@ app.include_router(reminders.router)
 # Static Files
 # --------------------------------------------------------------------------------
 
-app.mount( "/static", StaticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 # --------------------------------------------------------------------------------
 # Exception Handlers
 # --------------------------------------------------------------------------------
 
+
 @app.exception_handler(UnauthorizedPageException)
 async def unauthorized_exception_handler(request: Request, exc: UnauthorizedPageException):
-  return RedirectResponse('/login?unauthorized=True', status_code=302)
-
+    return RedirectResponse("/login?unauthorized=True", status_code=302)
 
 
 # --------------------------------------------------------------------------------
@@ -48,14 +48,14 @@ async def unauthorized_exception_handler(request: Request, exc: UnauthorizedPage
 
 @app.get("/")
 def read_root():
-  return {"Hello": "World"}
+    return {"Hello": "World"}
 
 
-@app.get('/favicon.ico', include_in_schema=False)
+@app.get("/favicon.ico", include_in_schema=False)
 async def favicon():
     return FileResponse("static/img/favicon.ico")
 
 
-@app.get('/not-found')
+@app.get("/not-found")
 async def get_not_found(request: Request):
-  return templates.TemplateResponse("pages/not-found.html", {'request': request})
+    return templates.TemplateResponse("pages/not-found.html", {"request": request})
