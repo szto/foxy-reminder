@@ -7,3 +7,4 @@ Jinja2==3.1.2
 python-multipart==0.0.6
 pytailwindcss==0.2.0
 black==24.3.0
+pytest-playwright==0.4.4
