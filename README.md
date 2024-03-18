@@ -43,4 +43,5 @@ The default database filepath is `reminder_db.json`.
 
 ## Credits
 
-- 
+- This project is inspried by [Bulldoggy-reminder-app](https://github.com/AutomationPanda/bulldoggy-reminders-app) AutomationPanda.
+
