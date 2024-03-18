@@ -50,7 +50,7 @@ def deserialize_token(token: str) -> str:
     try:
         data = jwt.decode(token, secret_key, algorithms=["HS256"])
         return data["username"]
-    except:
+    except Exception:
         return None
 
 

@@ -162,7 +162,7 @@ class ReminderStorage:
         try:
             reminder_list = self.get_list(list_id)
             reminder_items = self.get_items(list_id)
-        except:
+        except Exception:
             self._selected_table.update({"list_id": None}, Query().owner == self.owner)
             return None
 

@@ -8,7 +8,7 @@ This module provides routes for authentication.
 
 from app import templates
 from app.utils.auth import AuthCookie, get_login_form_creds, get_auth_cookie
-from app.utils.exceptions import UnauthorizedPageException, UnauthorizedException
+from app.utils.exceptions import UnauthorizedPageException
 
 from fastapi import APIRouter, Depends, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
