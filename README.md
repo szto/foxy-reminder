@@ -4,7 +4,8 @@ A simple reminder app for the foxy.
 * [Python](https://www.python.org/) as the main programming language
 * [FastAPI](https://fastapi.tiangolo.com/) for the backend
 * [HTMX](https://htmx.org/) 1.9.11 for handling dynamic interactions (instead of raw JavaScript)
-* [TailwindCSS](https://tailwindcss.com/) for css.
+* [FastHX](https://volfpeter.github.io/fasthx/) for htmx decorator
+* [TailwindCSS](https://tailwindcss.com/) for css
 * [Jinja templates](https://jinja.palletsprojects.com/en/3.1.x/) with HTML and CSS for the frontend
 * [TinyDB](https://tinydb.readthedocs.io/en/latest/index.html) for the database
 * [Playwright](https://playwright.dev/python/) and [pytest](https://docs.pytest.org/) for testing
