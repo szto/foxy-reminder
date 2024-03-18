@@ -22,37 +22,35 @@ from testlib.inputs import User
 
 
 def test_successful_login(page: Page, user: User):
-    # Given the login page is displayed
-    page.goto("/login")
+	# Given the login page is displayed
+	page.goto("/login")
 
-    # When the user logs into the app with valid credentials
-    page.locator('[name="username"]').fill(user.username)
-    page.locator('[name="password"]').fill(user.password)
-    page.click("#login")
+	# When the user logs into the app with valid credentials
+	page.locator('[name="username"]').fill(user.username)
+	page.locator('[name="password"]').fill(user.password)
+	page.click("#login")
 
-    # Then the reminders page is displayed
-    expect(page).to_have_title("Reminders | Foxy Reminders app")
-    expect(page).to_have_url(re.compile(re.escape("/") + "reminders"))
-    expect(page.locator("id=foxy-logo")).to_be_visible()
-    expect(page.locator("id=foxy-title")).to_have_text("Foxy Reminders")
-    expect(page.locator("id=reminders-message")).to_have_text(
-        f"Reminders for {user.username}"
-    )
-    expect(page.get_by_role("button", name="Logout")).to_be_visible()
+	# Then the reminders page is displayed
+	expect(page).to_have_title("Reminders | Foxy Reminders app")
+	expect(page).to_have_url(re.compile(re.escape("/") + "reminders"))
+	expect(page.locator("id=foxy-logo")).to_be_visible()
+	expect(page.locator("id=foxy-title")).to_have_text("Foxy Reminders")
+	expect(page.locator("id=reminders-message")).to_have_text(f"Reminders for {user.username}")
+	expect(page.get_by_role("button", name="Logout")).to_be_visible()
 
 
 def test_failed_login(page: Page, user: User):
-    # Given the login page is displayed
-    page.goto("/login")
+	# Given the login page is displayed
+	page.goto("/login")
 
-    # When the user logs into the app with invalid credentials
-    page.locator('[name="username"]').fill("wrong_username")
-    page.locator('[name="password"]').fill("wrong_password")
-    page.click("#login")
+	# When the user logs into the app with invalid credentials
+	page.locator('[name="username"]').fill("wrong_username")
+	page.locator('[name="password"]').fill("wrong_password")
+	page.click("#login")
 
-    # Then the redirect login page with is invalid
-    expect(page).to_have_url("http://127.0.0.1:8000/login?invalid=True")
-    expect(page).to_have_url(re.compile("/login"))
+	# Then the redirect login page with is invalid
+	expect(page).to_have_url("http://127.0.0.1:8000/login?invalid=True")
+	expect(page).to_have_url(re.compile("/login"))
 
 
 # --------------------------------------------------------------------------------

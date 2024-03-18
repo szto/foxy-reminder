@@ -23,8 +23,12 @@ exclude = '''
 )/
 '''
 
+[tool.ruff]
+line-length = 110
+
 [tool.ruff.format]
 quote-style = "double"
+indent-style = "tab"
 
 [tool.isort]
 profile="black"

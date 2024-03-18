@@ -19,29 +19,29 @@ router = APIRouter()
 
 
 @router.get(
-    path="/",
-    summary="Redirect to the login or reminders pages",
-    tags=["Pages"],
+	path="/",
+	summary="Redirect to the login or reminders pages",
+	tags=["Pages"],
 )
 def read_root(
-    cookie: Optional[AuthCookie] = Depends(get_auth_cookie),
+	cookie: Optional[AuthCookie] = Depends(get_auth_cookie),
 ):
-    path = "/reminders" if cookie else "/login"
-    return RedirectResponse(url=path, status_code=302)
+	path = "/reminders" if cookie else "/login"
+	return RedirectResponse(url=path, status_code=302)
 
 
 @router.get(
-    path="/favicon.ico",
-    include_in_schema=False,
+	path="/favicon.ico",
+	include_in_schema=False,
 )
 async def favicon():
-    return FileResponse("static/img/favicon.ico")
+	return FileResponse("static/img/favicon.ico")
 
 
 @router.get(
-    path="/not-found",
-    summary='Gets the "Not Found" page',
-    tags=["Pages"],
+	path="/not-found",
+	summary='Gets the "Not Found" page',
+	tags=["Pages"],
 )
 async def get_not_found(request: Request):
-    return templates.TemplateResponse("pages/not-found.html", {"request": request})
+	return templates.TemplateResponse("pages/not-found.html", {"request": request})
