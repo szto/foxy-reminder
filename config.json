@@ -1,4 +1,5 @@
 {
+  "db_path": "reminder_db.json",
   "secret_key": "mysecretkey",
   "users": {
     "pyman": "WowTesting12",

@@ -10,7 +10,7 @@ import jwt
 import secrets
 from typing import Optional
 
-from app import users, secret_key
+from app import users, secret_key, db_path
 from app.utils.exceptions import UnauthorizedException, UnauthorizedPageException
 from fastapi import Cookie, Form, Depends
 from fastapi.security import HTTPBasic
@@ -92,4 +92,4 @@ def get_username_for_page(cookie: Optional[AuthCookie] = Depends(get_auth_cookie
 
 
 def get_storage_for_page(username: str = Depends(get_username_for_page)) -> ReminderStorage:
-    return ReminderStorage(owner=username)
+    return ReminderStorage(owner=username, db_path=db_path)
