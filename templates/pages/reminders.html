@@ -4,11 +4,11 @@
     <link href="{{ url_for('static', path='/css/main.css') }}" rel="stylesheet">
     <script src="/static/js/htmx.min.js"></script>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100 bodyman">
     <!-- Navigation Bar -->
     <nav class="bg-white shadow-md">
         <div class="max-w-6xl mx-auto px-4">
-            <div class="flex justify-between">
+            <div class="flex justify-between items-center"> <!-- Ensure vertical alignment -->
                 <div class="flex space-x-4">
                     <!-- logo -->
                     <div>
@@ -23,9 +23,16 @@
                     </div>
                 </div>
                 <!-- secondary nav -->
-                <form action="/logout" method="post" class="flex">
-                    <button type="submit" class="hidden md:flex items-center space-x-1">Logout</button>
-                </form>
+                <div class="flex items-center"> <!-- This div wrapper ensures alignment -->
+                    <button
+                        type="submit" class="md:flex items-center space-x-1"
+                        hx-post="/logout"
+                        hx-trigger="click"
+                        hx-swap="none"
+                    >
+                        Logout
+                    </button>
+                </div>
             </div>
         </div>
     </nav>

@@ -11,7 +11,7 @@ from app.utils.auth import AuthCookie, get_login_form_creds, get_auth_cookie
 from app.utils.exceptions import UnauthorizedPageException
 
 from fastapi import APIRouter, Depends, Request
-from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.responses import HTMLResponse, RedirectResponse, Response
 from pydantic import BaseModel
 from typing import Optional
 
@@ -71,6 +71,7 @@ async def post_logout(cookie: Optional[AuthCookie] = Depends(get_auth_cookie)) -
 	if not cookie:
 		raise UnauthorizedPageException()
 
-	response = RedirectResponse("/login?logged_out=True", status_code=302)
+	response = Response(status_code=302)
 	response.set_cookie(key=cookie.name, value=cookie.token, expires=-1)
+	response.headers["HX-Redirect"] = "/login?logged_out=True"
 	return response
