@@ -44,6 +44,13 @@ To run the tests:
 pytest
 ```
 
+## Format and Lint
+
+```bash
+ruff format
+ruff check
+```
+
 
 ## Logging into the app
 
