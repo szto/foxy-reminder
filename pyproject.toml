@@ -25,6 +25,7 @@ exclude = '''
 
 [tool.ruff]
 line-length = 110
+indent-width = 4
 
 [tool.ruff.format]
 quote-style = "double"
