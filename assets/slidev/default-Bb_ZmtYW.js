@@ -1,0 +1,1 @@
+import{o,b as r,f as t}from"../modules/vue-Be3bPvwD.js";import{_ as s}from"../index-CLcW5-Tr.js";const n={},l={class:"slidev-layout default"};function d(e,a){return o(),r("div",l,[t(e.$slots,"default")])}const i=s(n,[["render",d],["__file","/home/runner/work/foxy-reminder/foxy-reminder/slidev/node_modules/@slidev/client/layouts/default.vue"]]);export{i as I};
