@@ -16,10 +16,10 @@ from testlib.inputs import User
 
 
 def test_token_serialization(user: User):
-	token = serialize_token(user.username)
-	assert token
-	assert isinstance(token, str)
+    token = serialize_token(user.username)
+    assert token
+    assert isinstance(token, str)
 
-	username = deserialize_token(token)
-	assert username == user.username
-	assert token != user.username
+    username = deserialize_token(token)
+    assert username == user.username
+    assert token != user.username

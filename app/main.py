@@ -37,4 +37,4 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.exception_handler(UnauthorizedPageException)
 async def unauthorized_exception_handler(request: Request, exc: UnauthorizedPageException):
-	return RedirectResponse("/login?unauthorized=True", status_code=302)
+    return RedirectResponse("/login?unauthorized=True", status_code=302)
