@@ -130,7 +130,8 @@ class ReminderStorage:
         self._verify_list_exists(list_id)
         items = self._items_table.search(Query().list_id == list_id)
         models = [ReminderItem(id=item.doc_id, **item) for item in items]
-        return models
+        sorted_models = sorted(models, key=lambda item: item.completed)
+        return sorted_models
 
     def get_item(self, item_id: int) -> ReminderItem:
         item = self._get_raw_item(item_id)

@@ -245,5 +245,5 @@ async def patch_reminders_item_row_strike(
     storage: ReminderStorage = Depends(get_storage_for_page),
 ):
     storage.strike_item(item_id)
-    reminder_item = storage.get_item(item_id)
-    return ReminderItemResponse(reminder_item=ReminderItem(**reminder_item.dict()))
+    # reminder_item = storage.get_item(item_id)
+    return _get_reminders_grid(request, storage)
