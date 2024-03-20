@@ -2,7 +2,7 @@
     <div class="bg-white rounded-lg shadow overflow-hidden m-4">
         <div class="p-4 mb-6 border-b">
             <h3 class="text-xl font-semibold text-gray-700">Reminder Lists</h3>
-            <p class="text-sm font-light text-gray-100">Total Count: {{ list_count }}</p>
+            <p class="text-xs font-light text-gray-700">Total Count: {{ list_count }}</p>
         </div>
         <div class="divide-y m-4 reminder-list-list">
             {% for reminder_list in reminder_lists %}
@@ -15,7 +15,7 @@
         {% if selected_list %}
         <div class="p-4 mb-6 border-b">
             <h3 class="text-xl font-semibold text-gray-700">{{ selected_list.name }}</h3>
-            <p class="text-sm font-light text-gray-100">Total Count: {{ selected_list_count }} / Working: {{ working_count }} / Done: {{ done_count }}</p>
+            <p class="text-xs font-light text-gray-700">Total Count: {{ selected_list_count }} / Working: {{ working_count }} / Done: {{ done_count }}</p>
         </div>
         <div class="divide-y m-4">
             {% for reminder_item in selected_list.items %}
