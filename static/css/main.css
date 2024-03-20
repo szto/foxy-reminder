@@ -552,6 +552,18 @@ video {
   margin: 1rem;
 }
 
+.m-6 {
+  margin: 1.5rem;
+}
+
+.m-10 {
+  margin: 2.5rem;
+}
+
+.m-8 {
+  margin: 2rem;
+}
+
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -567,6 +579,10 @@ video {
 
 .mr-2 {
   margin-right: 0.5rem;
+}
+
+.mb-6 {
+  margin-bottom: 1.5rem;
 }
 
 .block {
@@ -647,6 +663,10 @@ video {
 
 .gap-4 {
   gap: 1rem;
+}
+
+.gap-8 {
+  gap: 2rem;
 }
 
 .space-x-1 > :not([hidden]) ~ :not([hidden]) {
@@ -752,6 +772,10 @@ video {
 
 .p-2\.5 {
   padding: 0.625rem;
+}
+
+.p-10 {
+  padding: 2.5rem;
 }
 
 .px-2 {

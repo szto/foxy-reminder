@@ -1,26 +1,20 @@
-<!-- Title Bar -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 reminders-content">
-    <!-- Left Column for Reminder Lists -->
-    <div class="bg-white rounded-lg shadow overflow-hidden">
-        <h3 class="text-xl font-semibold text-gray-700 p-4 border-b">Reminder Lists</h3>
-        <div class="divide-y reminder-list-list">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 m-8 reminders-content p-8">
+    <div class="bg-white rounded-lg shadow overflow-hidden m-4">
+        <h3 class="text-xl font-semibold text-gray-700 p-4 mb-6 border-b">Reminder Lists</h3>
+        <div class="divide-y m-4 reminder-list-list">
             {% for reminder_list in reminder_lists %}
                 {% include "partials/reminders/list-row.html" %}
             {% endfor %}
-            <!-- ... other reminder rows ... -->
             {% include "partials/reminders/new-list-row.html" %}
         </div>
     </div>
-
-    <!-- Right Column for Reminder Items -->
-    <div class="bg-white rounded-lg shadow overflow-hidden reminders_content-items">
+    <div class="bg-white rounded-lg shadow overflow-hidden m-4 reminders_content-items">
         {% if selected_list %}
-        <h3 class="text-xl font-semibold text-gray-700 p-4 border-b">{{ selected_list.name }}</h3>
-        <div class="divide-y">
+        <h3 class="text-xl font-semibold text-gray-700 p-4 mb-6 border-b">{{ selected_list.name }}</h3>
+        <div class="divide-y m-4">
             {% for reminder_item in selected_list.items %}
                 {% include "partials/reminders/item-row.html" %}
             {% endfor %}
-            <!-- ... other reminder items ... -->
             {% include "partials/reminders/new-item-row.html" %}
         </div>
         {% endif %}
