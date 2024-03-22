@@ -6,10 +6,8 @@
     <div class="flex {{ 'text-gray-400' if reminder_item.completed }}">
         {% if reminder_item.completed %}
         <img
-                src="/static/img/icons/icon-check.svg" class="h-4 w-4 mr-2"
-                hx-patch="/reminders/item-row-unstrike/{{ reminder_item.id }}"
-                hx-trigger="click"
-                hx-swap="outerHTML"
+                src="/static/img/icons/icon-check.svg"
+                class="h-4 w-4 mr-2"
         />
         {% endif %}
         <p
