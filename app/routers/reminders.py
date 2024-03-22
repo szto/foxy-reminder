@@ -28,8 +28,10 @@ router = APIRouter()
 
 
 def _build_full_page_context(request: Request, storage: ReminderStorage):
+    # reminder_lists
     reminder_lists = storage.get_lists()
     list_count = len(reminder_lists)
+    # selected_list
     selected_list = storage.get_selected_list()
     selected_list_count = len(selected_list.items) if selected_list else 0
     working_count = len([item for item in selected_list.items if not item.completed]) if selected_list else 0
