@@ -7,6 +7,6 @@ css:
 css-minify:
 	tailwindcss -i styles/main.css -o static/css/main.css --minify
 
-# https://verdantfox.com/blog/how-to-hot-reload-fastapi-and-flask-apps-on-html-css-and-javascript-changes
-browser:
+# hot-reload: https://verdantfox.com/blog/how-to-hot-reload-fastapi-and-flask-apps-on-html-css-and-javascript-changes
+hot-reload:
 	browser-sync 'http://localhost:8000' 'static' --watch --files .
